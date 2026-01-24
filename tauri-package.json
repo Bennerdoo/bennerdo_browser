@@ -1,0 +1,26 @@
+{
+    "name": "bennerdo-tauri-browser",
+    "version": "1.0.0",
+    "description": "Privacy-first browser with unique lightweight UI built with Tauri",
+    "type": "module",
+    "scripts": {
+        "dev": "tauri dev",
+        "build": "tauri build",
+        "tauri": "tauri"
+    },
+    "keywords": [
+        "browser",
+        "privacy",
+        "tauri"
+    ],
+    "author": "Bennerdo",
+    "license": "MIT",
+    "devDependencies": {
+        "@tauri-apps/cli": "^2.1.0",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@tauri-apps/api": "^2.1.0"
+    }
+}
