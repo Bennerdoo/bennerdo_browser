@@ -1,5 +1,5 @@
 import { session, Session } from 'electron';
-import { ElectronBlocker } from '@cliqz/adblocker-electron';
+import { ElectronBlocker } from '@ghostery/adblocker-electron';
 import fetch from 'cross-fetch';
 import { SessionManager } from './session-manager';
 import { PermissionMonitor } from './permission-monitor';

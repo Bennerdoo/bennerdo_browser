@@ -7,7 +7,7 @@ Bennerdo Browser is designed to provide a fast, secure, and private browsing exp
 ## 🚀 Features
 
 ### 🛡️ Privacy First
--   **Built-in Ad & Tracker Blocking**: Automatically blocks ads and tracking scripts using `@cliqz/adblocker-electron`.
+-   **Built-in Ad & Tracker Blocking**: Automatically blocks ads and tracking scripts using `@ghostery/adblocker-electron`.
 -   **HTTPS Upgrades**: Automatically upgrades insecure HTTP requests to HTTPS.
 -   **Permission Monitoring**: enhanced control and logging of website permission requests.
 -   **Privacy Headers**: Enforces security headers like `X-Context-Type-Options`, `X-Frame-Options`, and `X-XSS-Protection`.
@@ -67,6 +67,24 @@ npm run package   # Packages the Electron app
 ```
 
  The output will be in the `release` directory.
+
+### Building for Linux (Flatpak)
+
+Building a Flatpak requires a Linux environment (like WSL or a Linux VM).
+
+1.  **Install dependencies** (Ubuntu/Debian/Kali):
+    ```bash
+    sudo apt install flatpak flatpak-builder
+    ```
+
+2.  **Run the build**:
+    ```bash
+    npm install        # Install project dependencies
+    npm run build      # Compile TypeScript
+    npm run package:linux
+    ```
+
+    The generated Flatpak file will be in the `release` directory.
 
  ##To download the desktop app, go to releases and find the file that mtches your os and architecture.
 

@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrivacyEngine = void 0;
-const adblocker_electron_1 = require("@cliqz/adblocker-electron");
+const adblocker_electron_1 = require("@ghostery/adblocker-electron");
 const cross_fetch_1 = __importDefault(require("cross-fetch"));
 class PrivacyEngine {
     constructor(sessionManager) {
