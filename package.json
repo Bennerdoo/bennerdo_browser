@@ -25,7 +25,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@ghostery/adblocker-electron": "^1.26.16",
+    "@ghostery/adblocker-electron": "^2.14.1",
     "cross-fetch": "^4.0.0"
   },
   "build": {
