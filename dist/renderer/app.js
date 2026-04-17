@@ -444,4 +444,4 @@ if (document.readyState === 'loading') {
 else {
     new BrowserApp();
 }
-export { };
+export {};
