@@ -16,6 +16,14 @@ electron_1.contextBridge.exposeInMainWorld('electronAPI', {
     reload: (tabId) => electron_1.ipcRenderer.invoke('reload', tabId),
     // Privacy
     getPrivacyStats: () => electron_1.ipcRenderer.invoke('get-privacy-stats'),
+    // Settings
+    getSettings: () => electron_1.ipcRenderer.invoke('get-settings'),
+    setSetting: (key, value) => electron_1.ipcRenderer.invoke('set-setting', key, value),
+    setSettings: (updates) => electron_1.ipcRenderer.invoke('set-settings', updates),
+    resetSettings: () => electron_1.ipcRenderer.invoke('reset-settings'),
+    pickDownloadFolder: () => electron_1.ipcRenderer.invoke('pick-download-folder'),
+    openPath: (folderPath) => electron_1.ipcRenderer.invoke('open-path', folderPath),
+    getSearchUrl: (query) => electron_1.ipcRenderer.invoke('get-search-url', query),
     // Window controls
     minimizeWindow: () => electron_1.ipcRenderer.send('window-minimize'),
     maximizeWindow: () => electron_1.ipcRenderer.send('window-maximize'),

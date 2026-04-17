@@ -18,6 +18,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // Privacy
     getPrivacyStats: () => ipcRenderer.invoke('get-privacy-stats'),
 
+    // Settings
+    getSettings: () => ipcRenderer.invoke('get-settings'),
+    setSetting: (key: string, value: any) => ipcRenderer.invoke('set-setting', key, value),
+    setSettings: (updates: any) => ipcRenderer.invoke('set-settings', updates),
+    resetSettings: () => ipcRenderer.invoke('reset-settings'),
+    pickDownloadFolder: () => ipcRenderer.invoke('pick-download-folder'),
+    openPath: (folderPath: string) => ipcRenderer.invoke('open-path', folderPath),
+    getSearchUrl: (query: string) => ipcRenderer.invoke('get-search-url', query),
+
     // Window controls
     minimizeWindow: () => ipcRenderer.send('window-minimize'),
     maximizeWindow: () => ipcRenderer.send('window-maximize'),
@@ -31,3 +40,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
         ipcRenderer.on('tabs-updated', (event, data) => callback(data));
     }
 });
+

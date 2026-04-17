@@ -1,9 +1,10 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, shell } from 'electron';
 import * as path from 'path';
 import { BrowserManager } from './browser-manager';
 import { PrivacyEngine } from './privacy-engine';
 import { SessionManager } from './session-manager';
 import { PermissionMonitor } from './permission-monitor';
+import { SettingsManager } from './settings-manager';
 
 // State management
 let mainWindow: BrowserWindow | null = null;
@@ -11,6 +12,7 @@ let browserManager: BrowserManager | null = null;
 let privacyEngine: PrivacyEngine | null = null;
 let sessionManager: SessionManager | null = null;
 let permissionMonitor: PermissionMonitor | null = null;
+let settingsManager: SettingsManager | null = null;
 
 // Single instance lock
 const gotTheLock = app.requestSingleInstanceLock();
@@ -31,6 +33,9 @@ if (!gotTheLock) {
 }
 
 async function onReady() {
+    // Initialize settings manager
+    settingsManager = new SettingsManager();
+
     // Initialize session manager
     sessionManager = new SessionManager();
 
@@ -117,6 +122,46 @@ function setupIPC() {
     // Privacy stats
     ipcMain.handle('get-privacy-stats', async () => {
         return privacyEngine?.getStats();
+    });
+
+    // Settings
+    ipcMain.handle('get-settings', async () => {
+        return settingsManager?.getAll();
+    });
+
+    ipcMain.handle('set-setting', async (event, key: string, value: any) => {
+        settingsManager?.set(key as any, value);
+        return true;
+    });
+
+    ipcMain.handle('set-settings', async (event, updates: any) => {
+        settingsManager?.setMany(updates);
+        return true;
+    });
+
+    ipcMain.handle('reset-settings', async () => {
+        settingsManager?.reset();
+        return settingsManager?.getAll();
+    });
+
+    ipcMain.handle('pick-download-folder', async () => {
+        const result = await dialog.showOpenDialog(mainWindow!, {
+            properties: ['openDirectory'],
+            title: 'Choose Download Folder'
+        });
+        if (!result.canceled && result.filePaths.length > 0) {
+            return result.filePaths[0];
+        }
+        return null;
+    });
+
+    ipcMain.handle('open-path', async (event, folderPath: string) => {
+        shell.openPath(folderPath);
+        return true;
+    });
+
+    ipcMain.handle('get-search-url', async (event, query: string) => {
+        return settingsManager?.getSearchUrl(query) || 'https://www.google.com/search?q=' + encodeURIComponent(query);
     });
 
     // Window controls

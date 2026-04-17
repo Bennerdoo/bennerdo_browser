@@ -39,12 +39,14 @@ const browser_manager_1 = require("./browser-manager");
 const privacy_engine_1 = require("./privacy-engine");
 const session_manager_1 = require("./session-manager");
 const permission_monitor_1 = require("./permission-monitor");
+const settings_manager_1 = require("./settings-manager");
 // State management
 let mainWindow = null;
 let browserManager = null;
 let privacyEngine = null;
 let sessionManager = null;
 let permissionMonitor = null;
+let settingsManager = null;
 // Single instance lock
 const gotTheLock = electron_1.app.requestSingleInstanceLock();
 if (!gotTheLock) {
@@ -64,6 +66,8 @@ else {
     });
 }
 async function onReady() {
+    // Initialize settings manager
+    settingsManager = new settings_manager_1.SettingsManager();
     // Initialize session manager
     sessionManager = new session_manager_1.SessionManager();
     // Initialize privacy engine with session manager
@@ -133,6 +137,39 @@ function setupIPC() {
     // Privacy stats
     electron_1.ipcMain.handle('get-privacy-stats', async () => {
         return privacyEngine?.getStats();
+    });
+    // Settings
+    electron_1.ipcMain.handle('get-settings', async () => {
+        return settingsManager?.getAll();
+    });
+    electron_1.ipcMain.handle('set-setting', async (event, key, value) => {
+        settingsManager?.set(key, value);
+        return true;
+    });
+    electron_1.ipcMain.handle('set-settings', async (event, updates) => {
+        settingsManager?.setMany(updates);
+        return true;
+    });
+    electron_1.ipcMain.handle('reset-settings', async () => {
+        settingsManager?.reset();
+        return settingsManager?.getAll();
+    });
+    electron_1.ipcMain.handle('pick-download-folder', async () => {
+        const result = await electron_1.dialog.showOpenDialog(mainWindow, {
+            properties: ['openDirectory'],
+            title: 'Choose Download Folder'
+        });
+        if (!result.canceled && result.filePaths.length > 0) {
+            return result.filePaths[0];
+        }
+        return null;
+    });
+    electron_1.ipcMain.handle('open-path', async (event, folderPath) => {
+        electron_1.shell.openPath(folderPath);
+        return true;
+    });
+    electron_1.ipcMain.handle('get-search-url', async (event, query) => {
+        return settingsManager?.getSearchUrl(query) || 'https://www.google.com/search?q=' + encodeURIComponent(query);
     });
     // Window controls
     electron_1.ipcMain.on('window-minimize', () => {

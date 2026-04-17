@@ -61,7 +61,7 @@
 
     <!-- Main content area -->
     <main class="main-content">
-      <!-- Navigation bar -->
+      <!-- Navigation bar — position:relative wrapper for the dropdown -->
       <nav class="navigation-bar">
         <div class="nav-controls">
           <button class="nav-btn" id="back-btn" title="Back" disabled>
@@ -98,67 +98,81 @@
           <input type="text" class="url-bar" id="url-bar" placeholder="Search or enter address">
         </div>
 
-        <button class="nav-btn menu-btn" id="menu-btn" title="Menu">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="3" r="1.5" fill="currentColor" />
-            <circle cx="8" cy="8" r="1.5" fill="currentColor" />
-            <circle cx="8" cy="13" r="1.5" fill="currentColor" />
-          </svg>
-        </button>
+        <!-- Menu button + its dropdown anchored here -->
+        <div class="menu-wrapper">
+          <button class="nav-btn menu-btn" id="menu-btn" title="Menu">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor" />
+              <circle cx="8" cy="8" r="1.5" fill="currentColor" />
+              <circle cx="8" cy="13" r="1.5" fill="currentColor" />
+            </svg>
+          </button>
 
-        <!-- Settings Menu Dropdown -->
-        <div class="settings-menu" id="settings-menu">
-          <div class="menu-section">
-            <div class="menu-item" id="menu-devtools">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 4L8 2L14 4V8C14 11 11 14 8 15C5 14 2 11 2 8V4Z" stroke="currentColor" stroke-width="1.5"
-                  fill="none" />
-              </svg>
-              <span>Open DevTools</span>
+          <!-- Quick-access dropdown menu -->
+          <div class="settings-menu" id="settings-menu">
+            <div class="menu-section">
+              <div class="menu-item" id="menu-new-tab">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>New Tab</span>
+              </div>
+              <div class="menu-item" id="menu-settings">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Settings</span>
+              </div>
+              <div class="menu-item" id="menu-devtools">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 4L8 2L14 4V8C14 11 11 14 8 15C5 14 2 11 2 8V4Z" stroke="currentColor" stroke-width="1.5" fill="none" />
+                </svg>
+                <span>Open DevTools</span>
+              </div>
+              <div class="menu-item" id="menu-clear-cache">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 6h10l-1 7H4L3 6z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                  <path d="M1 6h14M6 6V4a2 2 0 014 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span>Clear Cache</span>
+              </div>
             </div>
-            <div class="menu-item" id="menu-clear-cache">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M14 8C14 11.3 11.3 14 8 14C4.7 14 2 11.3 2 8C2 4.7 4.7 2 8 2C10.3 2 12.3 3.3 13.3 5.2"
-                  stroke="currentColor" stroke-width="1.5" />
-              </svg>
-              <span>Clear Cache</span>
+            <div class="menu-divider"></div>
+            <div class="menu-section">
+              <div class="menu-item menu-toggle">
+                <div class="toggle-label">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8C3 8 5 4 8 4C11 4 13 8 13 8C13 8 11 12 8 12C5 12 3 8 3 8Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.5" fill="none" />
+                  </svg>
+                  <span>Block Ads</span>
+                </div>
+                <div class="toggle-switch" id="toggle-ads">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+              <div class="menu-item menu-toggle">
+                <div class="toggle-label">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 1L2 4V8C2 11.5 4.7 14.7 8 15.5C11.3 14.7 14 11.5 14 8V4L8 1Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                  <span>Force HTTPS</span>
+                </div>
+                <div class="toggle-switch" id="toggle-https">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="menu-divider"></div>
-          <div class="menu-section">
-            <div class="menu-item menu-toggle">
-              <div class="toggle-label">
+            <div class="menu-divider"></div>
+            <div class="menu-section">
+              <div class="menu-item" id="menu-about">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none" />
+                  <path d="M8 7V11M8 5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
-                <span>Block Ads</span>
+                <span>About Bennerdo Browser</span>
               </div>
-              <div class="toggle-switch active" id="toggle-ads">
-                <div class="toggle-slider"></div>
-              </div>
-            </div>
-            <div class="menu-item menu-toggle">
-              <div class="toggle-label">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8C3 8 5 4 8 4C11 4 13 8 13 8C13 8 11 12 8 12C5 12 3 8 3 8Z" stroke="currentColor"
-                    stroke-width="1.5" fill="none" />
-                  <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.5" fill="none" />
-                </svg>
-                <span>Force HTTPS</span>
-              </div>
-              <div class="toggle-switch active" id="toggle-https">
-                <div class="toggle-slider"></div>
-              </div>
-            </div>
-          </div>
-          <div class="menu-divider"></div>
-          <div class="menu-section">
-            <div class="menu-item" id="menu-about">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none" />
-                <path d="M8 7V11M8 5V5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg>
-              <span>About Bennerdo Browser</span>
             </div>
           </div>
         </div>
@@ -170,6 +184,404 @@
       <!-- BrowserView will be rendered here by Electron -->
       <div class="browser-view-placeholder"></div>
     </main>
+  </div>
+
+  <!-- ===== FULL SETTINGS PANEL ===== -->
+  <div class="settings-overlay" id="settings-overlay">
+    <div class="settings-panel">
+      <!-- Panel Header -->
+      <div class="settings-header">
+        <div class="settings-title">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="11" cy="11" r="3.5" stroke="currentColor" stroke-width="1.8" fill="none"/>
+            <path d="M11 1v3M11 18v3M1 11h3M18 11h3M3.93 3.93l2.12 2.12M15.95 15.95l2.12 2.12M3.93 18.07l2.12-2.12M15.95 6.05l2.12-2.12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <h1>Settings</h1>
+        </div>
+        <button class="settings-close-btn" id="settings-close-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <line x1="2" y1="2" x2="14" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="14" y1="2" x2="2" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Panel Body: sidebar nav + content -->
+      <div class="settings-body">
+        <!-- Left nav -->
+        <nav class="settings-nav">
+          <button class="settings-nav-item active" data-section="general">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+            General
+          </button>
+          <button class="settings-nav-item" data-section="appearance">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M8 2C8 2 12 5 12 8C12 11 8 14 8 14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+            Appearance
+          </button>
+          <button class="settings-nav-item" data-section="search">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="6.5" cy="6.5" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Search
+          </button>
+          <button class="settings-nav-item" data-section="privacy">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1L2 4V8C2 11.5 4.7 14.7 8 15.5C11.3 14.7 14 11.5 14 8V4L8 1Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </svg>
+            Privacy
+          </button>
+          <button class="settings-nav-item" data-section="downloads">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2V10M5 7L8 10L11 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Downloads
+          </button>
+          <button class="settings-nav-item" data-section="content">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="2" y="3" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 7h6M5 10h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Content
+          </button>
+          <div class="settings-nav-divider"></div>
+          <button class="settings-nav-item settings-nav-reset" id="reset-settings-btn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M14 8C14 11.3 11.3 14 8 14C4.7 14 2 11.3 2 8C2 4.7 4.7 2 8 2C10.3 2 12.3 3.3 13.3 5.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M13 2V5.5H9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Reset to Defaults
+          </button>
+        </nav>
+
+        <!-- Right content -->
+        <div class="settings-content">
+
+          <!-- GENERAL -->
+          <section class="settings-section active" id="section-general">
+            <h2 class="settings-section-title">General</h2>
+
+            <div class="settings-group">
+              <label class="settings-label">Home Page</label>
+              <div class="settings-row">
+                <input type="text" class="settings-input" id="setting-homepage" placeholder="https://www.google.com">
+              </div>
+              <p class="settings-hint">Page shown when you click the Home button</p>
+            </div>
+
+            <div class="settings-group">
+              <label class="settings-label">New Tab Page</label>
+              <div class="settings-radio-group" id="setting-newTabPage">
+                <label class="settings-radio">
+                  <input type="radio" name="newTabPage" value="speed-dial">
+                  <span class="radio-mark"></span>
+                  Speed Dial (bookmarks &amp; recent)
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="newTabPage" value="homepage">
+                  <span class="radio-mark"></span>
+                  Home page
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="newTabPage" value="blank">
+                  <span class="radio-mark"></span>
+                  Blank page
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label class="settings-label">On Startup</label>
+              <div class="settings-radio-group" id="setting-startupBehavior">
+                <label class="settings-radio">
+                  <input type="radio" name="startupBehavior" value="homepage">
+                  <span class="radio-mark"></span>
+                  Open home page
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="startupBehavior" value="last-session">
+                  <span class="radio-mark"></span>
+                  Restore last session
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="startupBehavior" value="blank">
+                  <span class="radio-mark"></span>
+                  Open a new blank tab
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <!-- APPEARANCE -->
+          <section class="settings-section" id="section-appearance">
+            <h2 class="settings-section-title">Appearance</h2>
+
+            <div class="settings-group">
+              <label class="settings-label">Theme</label>
+              <div class="settings-radio-group" id="setting-theme">
+                <label class="settings-radio">
+                  <input type="radio" name="theme" value="dark">
+                  <span class="radio-mark"></span>
+                  Dark
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="theme" value="light">
+                  <span class="radio-mark"></span>
+                  Light
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="theme" value="system">
+                  <span class="radio-mark"></span>
+                  Match system
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <label class="settings-label">Font Size</label>
+              <div class="settings-radio-group" id="setting-fontSize">
+                <label class="settings-radio">
+                  <input type="radio" name="fontSize" value="small">
+                  <span class="radio-mark"></span>
+                  Small
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="fontSize" value="medium">
+                  <span class="radio-mark"></span>
+                  Medium
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="fontSize" value="large">
+                  <span class="radio-mark"></span>
+                  Large
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Show Bookmarks Bar</label>
+                  <p class="settings-hint">Display the bookmarks bar below the navigation bar</p>
+                </div>
+                <div class="toggle-switch" id="setting-showBookmarksBar">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SEARCH -->
+          <section class="settings-section" id="section-search">
+            <h2 class="settings-section-title">Search Engine</h2>
+
+            <div class="settings-group">
+              <label class="settings-label">Default Search Engine</label>
+              <div class="settings-radio-group" id="setting-searchEngine">
+                <label class="settings-radio">
+                  <input type="radio" name="searchEngine" value="google">
+                  <span class="radio-mark"></span>
+                  Google
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="searchEngine" value="duckduckgo">
+                  <span class="radio-mark"></span>
+                  DuckDuckGo
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="searchEngine" value="brave">
+                  <span class="radio-mark"></span>
+                  Brave Search
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="searchEngine" value="bing">
+                  <span class="radio-mark"></span>
+                  Bing
+                </label>
+                <label class="settings-radio">
+                  <input type="radio" name="searchEngine" value="startpage">
+                  <span class="radio-mark"></span>
+                  Startpage
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <!-- PRIVACY -->
+          <section class="settings-section" id="section-privacy">
+            <h2 class="settings-section-title">Privacy &amp; Security</h2>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Block Ads &amp; Trackers</label>
+                  <p class="settings-hint">Uses EasyList + EasyPrivacy filter lists</p>
+                </div>
+                <div class="toggle-switch" id="setting-blockAds">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Force HTTPS</label>
+                  <p class="settings-hint">Automatically upgrade HTTP connections to HTTPS</p>
+                </div>
+                <div class="toggle-switch" id="setting-forceHttps">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Block Third-Party Cookies</label>
+                  <p class="settings-hint">Prevents cross-site tracking via cookies</p>
+                </div>
+                <div class="toggle-switch" id="setting-blockThirdPartyCookies">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Send Do Not Track</label>
+                  <p class="settings-hint">Requests that sites don't track your browsing</p>
+                </div>
+                <div class="toggle-switch" id="setting-sendDoNotTrack">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Block Fingerprinting</label>
+                  <p class="settings-hint">Limits browser fingerprint for enhanced anonymity</p>
+                </div>
+                <div class="toggle-switch" id="setting-blockFingerprinting">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <button class="settings-action-btn danger" id="btn-clear-data">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 6h10l-1 7H4L3 6z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                  <path d="M1 6h14M6 6V4a2 2 0 014 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Clear Browsing Data
+              </button>
+            </div>
+          </section>
+
+          <!-- DOWNLOADS -->
+          <section class="settings-section" id="section-downloads">
+            <h2 class="settings-section-title">Downloads</h2>
+
+            <div class="settings-group">
+              <label class="settings-label">Download Location</label>
+              <div class="settings-path-row">
+                <input type="text" class="settings-input settings-path-input" id="setting-downloadPath" readonly>
+                <button class="settings-action-btn" id="btn-pick-download">Browse…</button>
+              </div>
+              <p class="settings-hint">Where files are saved by default</p>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Ask where to save each file</label>
+                  <p class="settings-hint">Show a save dialog before every download</p>
+                </div>
+                <div class="toggle-switch" id="setting-askBeforeDownload">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONTENT -->
+          <section class="settings-section" id="section-content">
+            <h2 class="settings-section-title">Content Settings</h2>
+
+            <div class="settings-group">
+              <label class="settings-label">Default Zoom Level</label>
+              <div class="settings-zoom-row">
+                <button class="zoom-btn" id="zoom-out">−</button>
+                <span class="zoom-value" id="zoom-display">100%</span>
+                <button class="zoom-btn" id="zoom-in">+</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">JavaScript</label>
+                  <p class="settings-hint">Allow sites to run JavaScript</p>
+                </div>
+                <div class="toggle-switch" id="setting-javascript">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Images</label>
+                  <p class="settings-hint">Show images on web pages</p>
+                </div>
+                <div class="toggle-switch" id="setting-images">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Notifications</label>
+                  <p class="settings-hint">Allow sites to show notifications</p>
+                </div>
+                <div class="toggle-switch" id="setting-notifications">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-toggle-row">
+                <div>
+                  <label class="settings-label">Pop-ups &amp; Redirects</label>
+                  <p class="settings-hint">Allow sites to open pop-up windows</p>
+                </div>
+                <div class="toggle-switch" id="setting-popups">
+                  <div class="toggle-slider"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Background effects -->
