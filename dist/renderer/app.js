@@ -234,7 +234,7 @@ class BrowserApp {
         });
         // About
         document.getElementById('menu-about')?.addEventListener('click', () => {
-            alert('Bennerdo Browser v1.0.0\n\nPrivacy-first browser with unique lightweight UI\n\nMade with ❤️ by Bennerdo');
+            alert('Bennerdo Browser v1.1.0\n\nPrivacy-first browser with unique lightweight UI\n\nMade with ❤️ by Bennerdo');
             menu?.classList.remove('active');
         });
         // Quick toggles — sync with loaded settings
@@ -444,4 +444,4 @@ if (document.readyState === 'loading') {
 else {
     new BrowserApp();
 }
-export {};
+export { };
